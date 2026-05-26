@@ -1,9 +1,9 @@
-## Status: Development ##
+![Status](https://img.shields.io/badge/Status-In_Development-yellow)
 
+## Status: Development ##
 _The application's structure/skeleton has been written a few months ago, when handling my local project configuration. Hence, the utility is under development and improvement_
 
 ## Motivation ##
-
 The project is intended to solve real-world operational challenges, specifically focused on efficient system log management and task fluidization.
 
 This content and application have the sole purpose of learning and practing idiomatic Golang development + system optimization, and task fluidization. As such, I used a free-open-source license for maxium flexibility and transparency.
