@@ -1,3 +1,8 @@
+## WORK IN PROGRESS ##
+
+{The application's structure/skeleton has been written a few months ago, when handling my local project configuration. The whole implementation and optimization is a work-in-progress.}
+
+## About ##
 This is a go system log management utility; it is desinged to address the need of managing system logs from a given system.
 
 Due to simple yet powerful file-handling Go methods, the expectation for the following utility is to be able to perform the following actions:
