@@ -8,10 +8,12 @@ import (
 
 func createLogFile() {
 	fmt.Println("Enter the name of the log file you'd like to create:")
-	var fileName string
-	fmt.Scanln(&fileName)
 
-	/* Create File here */
+	scanner := bufio.NewScanner(os.Stdin)
+	scanner.Scan()
+	fileName := scanner.Text()
+
+	/* Creates the file here */
 	file, err := os.Create(fileName)
 	if err != nil {
 		fmt.Println(err)
@@ -25,10 +27,12 @@ func createLogFile() {
 
 func readLogFile() {
 	fmt.Println("Enter the name of the log file you'd like to read from:")
-	var fileName string
-	fmt.Scanln(&fileName)
 
-	/* Read File here */
+	scanner := bufio.NewScanner(os.Stdin)
+	scanner.Scan()
+	fileName := scanner.Text()
+
+	/* Reads the file here */
 	content, err := os.ReadFile(fileName)
 	if err != nil {
 		fmt.Println(err)
@@ -41,13 +45,16 @@ func readLogFile() {
 
 func writeLogEntry() {
 	fmt.Println("Enter the name of the log file you'd like to write to:")
-	var fileName string
-	fmt.Scanln(&fileName)
 
-	fmt.Println("Enter the log entry:")
 	scanner := bufio.NewScanner(os.Stdin)
 	scanner.Scan()
-	data := scanner.Text()
+	fileName := scanner.Text()
+
+	fmt.Println("Enter the log entry:")
+
+	entryScanner := bufio.NewScanner(os.Stdin)
+	entryScanner.Scan()
+	data := entryScanner.Text()
 
 	file, err := os.OpenFile(fileName, os.O_APPEND|os.O_WRONLY, 0644)
 	if err != nil {
@@ -56,8 +63,8 @@ func writeLogEntry() {
 	}
 	defer file.Close()
 
-	/* Write string here */
-	bytesWritten, err := file.WriteString(data)
+	/* Writes the string here */
+	bytesWritten, err := file.WriteString(data + "\n")
 	if err != nil {
 		fmt.Println(err)
 		return

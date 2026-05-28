@@ -6,7 +6,7 @@ import (
 )
 
 func main() {
-	fmt.Println("Welcome to the Log Management System!")
+	fmt.Println("The System Log utility is running. What would you like to do next?")
 
 	for {
 		printOptions()
