@@ -3,7 +3,9 @@ package main
 import (
 	"bufio"
 	"fmt"
+	"io/fs"
 	"os"
+	"path/filepath"
 )
 
 func createLogDirectory() {
@@ -49,9 +51,19 @@ func printWorkingDirectory() {
 	fmt.Println("Current working directory is:", cwd)
 }
 
+func getWorkingDirectory() string {
+	/* Gets the working directory here */
+	cwd, err := os.Getwd()
+	if err != nil {
+		fmt.Println(err)
+		return ""
+	}
+	return cwd
+}
+
 func listDirectoryContents() {
 	cwd := getWorkingDirectory()
-	fmt.Println("Current Working directory is:", cwd)
+	fmt.Println("Current Working directory is: ", cwd)
 
 	files, err := os.ReadDir(cwd)
 	if err != nil {
@@ -65,12 +77,25 @@ func listDirectoryContents() {
 	}
 }
 
-func getWorkingDirectory() string {
-	/* Gets the working directory here */
-	cwd, err := os.Getwd()
-	if err != nil {
-		fmt.Println(err)
-		return ""
+func listDirectoryContentsRecursive() {
+	if !isAdmin() {
+		fmt.Println("The access is denied! Note: this is an Admin view. Please run the utility as admin (e.g.'with sudo') or ask for admin help.")
+		return
 	}
-	return cwd
+	cwd := getWorkingDirectory()
+	fmt.Println("The starting point/current working directory is: ", cwd)
+
+	err := filepath.WalkDir(cwd, func(path string, d fs.DirEntry, err error) error {
+		if err != nil {
+			return nil // silently skips directories that even the admin does not have enough priviledges to access
+		}
+		fmt.Println(path)
+		return nil
+	})
+
+	if err != nil {
+		fmt.Println("Error reading the directory recursively: ", err)
+	}
+	fmt.Println("Finalized recursive data checks.")
+
 }
