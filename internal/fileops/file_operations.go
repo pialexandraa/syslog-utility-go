@@ -1,4 +1,4 @@
-package main
+package fileops
 
 import (
 	"bufio"
@@ -6,7 +6,12 @@ import (
 	"os"
 )
 
-func createLogFile() {
+func CreateLogFile() {
+	if !IsAdmin() {
+		fmt.Println("Access denied: You do not have enough permisions to execute this action. Try again with Admin privileges.")
+		return
+	}
+
 	fmt.Println("Enter the name of the log file you'd like to create:")
 
 	scanner := bufio.NewScanner(os.Stdin)
@@ -25,7 +30,7 @@ func createLogFile() {
 	fmt.Printf("Log file '%s' created successfully.\n", fileName)
 }
 
-func readLogFile() {
+func ReadLogFile() {
 	fmt.Println("Enter the name of the log file you'd like to read from:")
 
 	scanner := bufio.NewScanner(os.Stdin)
@@ -43,7 +48,12 @@ func readLogFile() {
 	fmt.Println(string(content))
 }
 
-func writeLogEntry() {
+func WriteLogEntry() {
+	if !IsAdmin() {
+		fmt.Println("Access denied: You do not have enough permisions to execute this action. Try again with Admin privileges.")
+		return
+	}
+
 	fmt.Println("Enter the name of the log file you'd like to write to:")
 
 	scanner := bufio.NewScanner(os.Stdin)

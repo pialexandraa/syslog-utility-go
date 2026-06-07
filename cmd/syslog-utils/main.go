@@ -2,21 +2,9 @@ package main
 
 import (
 	"fmt"
-	"os/user"
-	"runtime"
 	"strconv"
+	"syslog-utility-go/internal/fileops"
 )
-
-func isAdmin() bool {
-	currentUser, err := user.Current()
-	if err != nil {
-		return false // if the user can not be verrified as admin, it defaults to false (access denied)
-	}
-	if runtime.GOOS == "windows" {
-		return currentUser.Gid == "S-1-5-32-544" // the local Administrators group in Windows
-	}
-	return currentUser.Uid == "0" // admin check for Unix-like systems
-}
 
 func main() {
 	fmt.Println("The System Log utility is running. What would you like to do next?")
@@ -40,21 +28,21 @@ func main() {
 
 		switch option {
 		case 1:
-			createLogDirectory()
+			fileops.CreateLogDirectory()
 		case 2:
-			changeLogDirectory()
+			fileops.ChangeLogDirectory()
 		case 3:
-			createLogFile()
+			fileops.CreateLogFile()
 		case 4:
-			readLogFile()
+			fileops.ReadLogFile()
 		case 5:
-			writeLogEntry()
+			fileops.WriteLogEntry()
 		case 6:
-			printWorkingDirectory()
+			fileops.PrintWorkingDirectory()
 		case 7:
-			listDirectoryContents()
+			fileops.ListDirectoryContents()
 		case 8:
-			listDirectoryContentsRecursive()
+			fileops.ListDirectoryContentsRecursive()
 		default:
 			fmt.Println("Invalid option provided.")
 		}

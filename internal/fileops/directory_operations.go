@@ -1,4 +1,4 @@
-package main
+package fileops
 
 import (
 	"bufio"
@@ -8,7 +8,7 @@ import (
 	"path/filepath"
 )
 
-func createLogDirectory() {
+func CreateLogDirectory() {
 	fmt.Println("Enter the name of the log directory you'd like to create:")
 
 	scanner := bufio.NewScanner(os.Stdin)
@@ -25,8 +25,8 @@ func createLogDirectory() {
 	fmt.Println("Successful creation of the directory: ", dirName)
 }
 
-func changeLogDirectory() {
-	cwd := getWorkingDirectory()
+func ChangeLogDirectory() {
+	cwd := GetWorkingDirectory()
 	fmt.Println("Current directory is:", cwd)
 
 	fmt.Print("Enter the name of the log directory you want to change to: ")
@@ -42,16 +42,16 @@ func changeLogDirectory() {
 		return
 	}
 
-	newCwd := getWorkingDirectory()
+	newCwd := GetWorkingDirectory()
 	fmt.Println("Directory changed successfully. Current directory is:", newCwd)
 }
 
-func printWorkingDirectory() {
-	cwd := getWorkingDirectory()
+func PrintWorkingDirectory() {
+	cwd := GetWorkingDirectory()
 	fmt.Println("Current working directory is:", cwd)
 }
 
-func getWorkingDirectory() string {
+func GetWorkingDirectory() string {
 	/* Gets the working directory here */
 	cwd, err := os.Getwd()
 	if err != nil {
@@ -61,8 +61,8 @@ func getWorkingDirectory() string {
 	return cwd
 }
 
-func listDirectoryContents() {
-	cwd := getWorkingDirectory()
+func ListDirectoryContents() {
+	cwd := GetWorkingDirectory()
 	fmt.Println("Current Working directory is: ", cwd)
 
 	files, err := os.ReadDir(cwd)
@@ -77,12 +77,12 @@ func listDirectoryContents() {
 	}
 }
 
-func listDirectoryContentsRecursive() {
-	if !isAdmin() {
+func ListDirectoryContentsRecursive() {
+	if !IsAdmin() {
 		fmt.Println("The access is denied! Note: this is an Admin view. Please run the utility as admin (e.g.'with sudo') or ask for admin help.")
 		return
 	}
-	cwd := getWorkingDirectory()
+	cwd := GetWorkingDirectory()
 	fmt.Println("The starting point/current working directory is: ", cwd)
 
 	err := filepath.WalkDir(cwd, func(path string, d fs.DirEntry, err error) error {
